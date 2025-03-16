@@ -8,6 +8,25 @@ import vercel from '@astrojs/vercel/serverless';
 // https://astro.build/config
 export default defineConfig({
 	output: 'server',
-	adapter: vercel(),
-	integrations: [mdx(), sitemap(), auth()]
+	adapter: vercel({
+		functionPerRoute: false,
+		includeFiles: [
+			'./src/content/**/*'
+		],
+		webAnalytics: {
+			enabled: false
+		},
+		speedInsights: {
+			enabled: false
+		},
+		imageService: false,
+		devImageService: 'sharp'
+	}),
+	integrations: [
+		mdx({
+			optimize: true
+		}),
+		sitemap(),
+		auth()
+	]
 });
