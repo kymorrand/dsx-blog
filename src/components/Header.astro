@@ -1,6 +1,9 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request);
 ---
 
 <header>
@@ -12,6 +15,11 @@ import { SITE_TITLE } from '../consts';
 			<HeaderLink href="/docs">Docs</HeaderLink>
 			<HeaderLink href="/status">Status</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
+			{session ? (
+				<HeaderLink href="/builder/test">Builder Dashboard</HeaderLink>
+			) : (
+				<HeaderLink href="/login">Login</HeaderLink>
+			)}
 		</div>
 		<div class="social-links">
 			<a href="https://github.com/kymorrand" target="_blank">

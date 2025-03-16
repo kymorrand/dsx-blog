@@ -2,24 +2,43 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import BuddyInterview from '../components/BuddyInterview.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="Test Builder Interview" description="Test the Buddy interview system" />
+		<BaseHead title="New Blog Post" description="Create a new blog post" />
 	</head>
 	<body>
 		<Header />
 		<main class="content">
-			<h1>Test Builder Interview</h1>
-			<p>This is a test page for the Buddy interview system. The Buddy will ask you questions about your progress on DSX today.</p>
+			<h1>Create Blog Post</h1>
+			<p>Share your progress on DSX development.</p>
 			
-			<div class="interview-container">
-				<BuddyInterview builderId="test-builder" />
-			</div>
+			<form class="blog-form">
+				<div class="form-group">
+					<label for="title">Title</label>
+					<input type="text" id="title" name="title" required>
+				</div>
+
+				<div class="form-group">
+					<label for="description">Description</label>
+					<textarea id="description" name="description" rows="2" required></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="content">Content (Markdown)</label>
+					<textarea id="content" name="content" rows="10" required></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="tags">Tags (comma-separated)</label>
+					<input type="text" id="tags" name="tags" placeholder="dsx, development, update">
+				</div>
+
+				<button type="submit" class="submit-button">Create Post</button>
+			</form>
 		</main>
 		<Footer />
 	</body>
@@ -32,7 +51,70 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		padding: 2rem;
 	}
 
-	.interview-container {
+	.blog-form {
 		margin: 2rem 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.form-group label {
+		font-weight: 500;
+	}
+
+	.form-group input,
+	.form-group textarea {
+		padding: 0.5rem;
+		border: 1px solid var(--theme-divider);
+		border-radius: 0.25rem;
+		font-family: inherit;
+		font-size: inherit;
+		background: var(--theme-bg);
+		color: var(--theme-text);
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: var(--theme-accent);
+	}
+
+	.submit-button {
+		padding: 0.5rem 1rem;
+		background: var(--theme-accent);
+		color: var(--theme-bg);
+		border: none;
+		border-radius: 0.25rem;
+		font-weight: 500;
+		cursor: pointer;
+		align-self: flex-start;
+	}
+
+	.submit-button:hover {
+		background: var(--theme-accent-dark);
 	}
 </style>
+
+<script>
+document.querySelector('.blog-form')?.addEventListener('submit', async (e) => {
+	e.preventDefault();
+	const formData = new FormData(e.target as HTMLFormElement);
+	const data = {
+		title: formData.get('title'),
+		description: formData.get('description'),
+		content: formData.get('content'),
+		tags: formData.get('tags')?.toString().split(',').map(t => t.trim()),
+		pubDate: new Date().toISOString(),
+		author: 'Kyle Morrand'
+	};
+	console.log('Blog post data:', data);
+	// TODO: Add server-side handling
+	alert('Blog post created! (Preview mode)');
+});
+</script>
