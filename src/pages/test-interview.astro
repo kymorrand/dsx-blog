@@ -1,34 +1,38 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import BuddyInterview from '../components/BuddyInterview.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
-<Layout
-	title="Test Builder Interview"
-	description="Test the Buddy interview system"
-	pubDate={new Date()}
-	heroImage="/blog-placeholder-1.jpg"
->
-	<div class="prose prose-lg mx-auto">
-		<h1>Test Builder Interview</h1>
-		<p>This is a test page for the Buddy interview system. The Buddy will ask you questions about your progress on DSX today.</p>
-		
-		<div class="my-8">
-			<BuddyInterview 
-				client:load
-				builderId="test-builder"
-				onComplete={(responses) => {
-					console.log('Interview completed:', responses);
-				}}
-			/>
-		</div>
-	</div>
-</Layout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Test Builder Interview" description="Test the Buddy interview system" />
+	</head>
+	<body>
+		<Header />
+		<main class="content">
+			<h1>Test Builder Interview</h1>
+			<p>This is a test page for the Buddy interview system. The Buddy will ask you questions about your progress on DSX today.</p>
+			
+			<div class="interview-container">
+				<BuddyInterview builderId="test-builder" />
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
 
 <style>
-	.prose {
+	.content {
 		max-width: 65ch;
 		margin: 0 auto;
 		padding: 2rem;
+	}
+
+	.interview-container {
+		margin: 2rem 0;
 	}
 </style>
