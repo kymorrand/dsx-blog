@@ -14,15 +14,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.1.1",
-    "@astrojs/node": "^8.2.3",
-    "@astrojs/rss": "^4.0.1",
-    "@astrojs/sitemap": "^3.0.4",
-    "@auth/core": "^0.37.3",
-    "auth-astro": "^4.2.0",
-    "astro": "^4.2.1",
-    "hast-util-raw": "^9.0.2",
-    "zwitch": "^2.0.4",
-    "remark-gfm": "^4.0.0"
+    "@astrojs/mdx": "2.1.1",
+    "@astrojs/rss": "4.0.1",
+    "@astrojs/sitemap": "3.0.4",
+    "@astrojs/vercel": "7.3.1",
+    "@auth/core": "0.18.6",
+    "auth-astro": "4.1.0",
+    "astro": "4.2.1",
+    "remark-gfm": "4.0.0"
   }
 }

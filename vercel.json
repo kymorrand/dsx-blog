@@ -2,6 +2,12 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "framework": null,
-  "outputDirectory": "dist"
+  "framework": "astro",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/auth/:path*",
+      "destination": "/api/auth/[...auth]"
+    }
+  ]
 }
