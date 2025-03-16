@@ -7,15 +7,7 @@ import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://dsx-blog.vercel.app',
 	output: 'server',
-	adapter: vercel({
-		webAnalytics: {
-			enabled: true,
-		},
-		maxDuration: 60,
-		includeFiles: ['./src/content/**/*'],
-		functionPerRoute: false
-	}),
-	integrations: [mdx(), sitemap(), auth()],
+	adapter: vercel(),
+	integrations: [mdx(), sitemap(), auth()]
 });
