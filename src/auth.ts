@@ -6,10 +6,26 @@ export const authConfig: AuthConfig = {
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent"
+        }
+      }
     })
   ],
   secret: process.env.AUTH_SECRET,
   trustHost: true,
+  cookies: {
+    pkceCodeVerifier: {
+      name: "next-auth.pkce.code_verifier",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production"
+      }
+    }
+  },
   callbacks: {
     async signIn({ user, account, profile }) {
       // Only allow specific GitHub users to sign in
