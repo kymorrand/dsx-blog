@@ -1,0 +1,17 @@
+---
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request);
+const isAuthenticated = !!session;
+
+interface Props {
+  fallback?: string;
+}
+
+const { fallback = '/login' } = Astro.props;
+
+if (!isAuthenticated) {
+  return Astro.redirect(fallback);
+}
+---
+<slot />

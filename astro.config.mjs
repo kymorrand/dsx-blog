@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import auth from 'auth-astro';
 import remarkGfm from 'remark-gfm';
 
 // https://astro.build/config
@@ -12,6 +13,7 @@ export default defineConfig({
 			remarkPlugins: [remarkGfm],
 			gfm: true,
 		}),
-		sitemap()
+		sitemap(),
+		auth()
 	],
 });
