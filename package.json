@@ -2,12 +2,17 @@
   "name": "dsx-blog",
   "version": "1.0.0",
   "description": "Digital Sunshine Exchange Documentation",
-  "main": "index.js",
+  "main": "server.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "marked": "^12.0.0"
+    "marked": "^11.2.0"
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }
