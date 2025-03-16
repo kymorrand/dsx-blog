@@ -1,7 +1,7 @@
-import GitHub from '@auth/core/providers/github'
 import type { AuthConfig } from '@auth/core'
+import GitHub from '@auth/core/providers/github'
 
-const authConfig = {
+export const authConfig: AuthConfig = {
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -10,17 +10,6 @@ const authConfig = {
   ],
   secret: process.env.AUTH_SECRET,
   trustHost: true,
-  cookies: {
-    sessionToken: {
-      name: process.env.NODE_ENV === 'production' ? '__Secure-authjs.session-token' : 'authjs.session-token',
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: process.env.NODE_ENV === 'production'
-      }
-    }
-  },
   callbacks: {
     async signIn({ user, account, profile }) {
       // Only allow specific GitHub users to sign in
@@ -34,6 +23,6 @@ const authConfig = {
       return session
     }
   }
-} satisfies AuthConfig
+}
 
 export default authConfig
