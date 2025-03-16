@@ -4,7 +4,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import auth from 'auth-astro';
 import vercel from '@astrojs/vercel/serverless';
-import remarkGfm from 'remark-gfm';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,10 +16,7 @@ export default defineConfig({
 		maxDuration: 60
 	}),
 	integrations: [
-		mdx({
-			remarkPlugins: [remarkGfm],
-			gfm: true
-		}),
+		mdx(),
 		sitemap(),
 		auth()
 	],
