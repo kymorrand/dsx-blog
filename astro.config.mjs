@@ -16,6 +16,9 @@ export default defineConfig({
 		},
 		speedInsights: {
 			enabled: false
+		},
+		isr: {
+			expiration: false
 		}
 	}),
 	integrations: [
@@ -29,6 +32,9 @@ export default defineConfig({
 	vite: {
 		ssr: {
 			noExternal: ['@auth/core']
+		},
+		optimizeDeps: {
+			exclude: ['@auth/core']
 		}
 	}
 });
