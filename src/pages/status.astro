@@ -41,7 +41,16 @@ const initialCards = {
 				padding: 1em;
 			}
 			h1 {
+				margin-bottom: 1rem;
+			}
+			.subtitle {
+				color: var(--theme-text-light);
+				font-size: 0.9em;
 				margin-bottom: 2rem;
+				padding: 0.75rem;
+				background: var(--theme-bg-accent);
+				border-radius: 0.5rem;
+				border-left: 4px solid var(--accent);
 			}
 			.board {
 				display: grid;
@@ -67,11 +76,10 @@ const initialCards = {
 				border-radius: 0.5rem;
 				padding: 1rem;
 				margin-bottom: 1rem;
-				cursor: move;
-				transition: box-shadow 0.2s ease;
+				transition: transform 0.2s ease;
 			}
 			.card:hover {
-				box-shadow: 0 2px 8px rgba(var(--accent-dark), 25%);
+				transform: translateY(-2px);
 			}
 			.card h3 {
 				margin: 0 0 0.5rem 0;
@@ -82,8 +90,11 @@ const initialCards = {
 				font-size: 0.9em;
 				color: var(--theme-text-light);
 			}
-			.dragging {
-				opacity: 0.5;
+			.last-updated {
+				text-align: right;
+				font-size: 0.8em;
+				color: var(--theme-text-light);
+				margin-top: 2rem;
 			}
 			@media (max-width: 768px) {
 				.board {
@@ -99,11 +110,14 @@ const initialCards = {
 		<main>
 			<div class="content">
 				<h1>Project Status</h1>
+				<div class="subtitle">
+					🤖 This board is managed by the AI Buddy system. Status updates are made automatically based on development progress and conversations.
+				</div>
 				<div class="board">
 					<div class="column" data-column="todo">
 						<div class="column-header">To Do</div>
 						{initialCards.todo.map(card => (
-							<div class="card" draggable="true" data-id={card.id}>
+							<div class="card" data-id={card.id}>
 								<h3>{card.title}</h3>
 								<p>{card.description}</p>
 							</div>
@@ -112,7 +126,7 @@ const initialCards = {
 					<div class="column" data-column="doing">
 						<div class="column-header">Doing</div>
 						{initialCards.doing.map(card => (
-							<div class="card" draggable="true" data-id={card.id}>
+							<div class="card" data-id={card.id}>
 								<h3>{card.title}</h3>
 								<p>{card.description}</p>
 							</div>
@@ -121,56 +135,18 @@ const initialCards = {
 					<div class="column" data-column="done">
 						<div class="column-header">Done</div>
 						{initialCards.done.map(card => (
-							<div class="card" draggable="true" data-id={card.id}>
+							<div class="card" data-id={card.id}>
 								<h3>{card.title}</h3>
 								<p>{card.description}</p>
 							</div>
 						))}
 					</div>
 				</div>
+				<div class="last-updated">
+					Last updated: March 15, 2025 at 11:14 PM EDT
+				</div>
 			</div>
 		</main>
 		<Footer />
-
-		<script>
-			let draggingCard = null;
-
-			document.addEventListener('DOMContentLoaded', () => {
-				const cards = document.querySelectorAll('.card');
-				const columns = document.querySelectorAll('.column');
-
-				cards.forEach(card => {
-					card.addEventListener('dragstart', handleDragStart);
-					card.addEventListener('dragend', handleDragEnd);
-				});
-
-				columns.forEach(column => {
-					column.addEventListener('dragover', handleDragOver);
-					column.addEventListener('drop', handleDrop);
-				});
-			});
-
-			function handleDragStart(e) {
-				draggingCard = e.target;
-				e.target.classList.add('dragging');
-			}
-
-			function handleDragEnd(e) {
-				e.target.classList.remove('dragging');
-				draggingCard = null;
-			}
-
-			function handleDragOver(e) {
-				e.preventDefault();
-			}
-
-			function handleDrop(e) {
-				e.preventDefault();
-				const column = e.target.closest('.column');
-				if (!column || !draggingCard) return;
-				
-				column.insertBefore(draggingCard, column.querySelector('.card') || null);
-			}
-		</script>
 	</body>
 </html>
