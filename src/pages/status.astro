@@ -1,0 +1,176 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const initialCards = {
+	todo: [
+		{ id: 'card1', title: 'Social Integration', description: 'Implement cross-posting to social platforms' },
+		{ id: 'card2', title: 'AI Interview Flow', description: 'Complete the interview-to-post workflow' },
+		{ id: 'card3', title: 'Analytics Integration', description: 'Add privacy-focused analytics' }
+	],
+	doing: [
+		{ id: 'card4', title: 'Documentation Site', description: 'Building comprehensive documentation' },
+		{ id: 'card5', title: 'Project Status Board', description: 'Creating interactive Kanban board' }
+	],
+	done: [
+		{ id: 'card6', title: 'Dark Theme', description: 'Implement consistent dark theme styling' },
+		{ id: 'card7', title: 'Blog Setup', description: 'Initialize Astro-based blog framework' },
+		{ id: 'card8', title: 'Deployment', description: 'Configure Vercel deployment' }
+	]
+};
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 100%;
+				max-width: 100%;
+				margin: 0;
+				padding: 3rem 0;
+				background: var(--theme-bg);
+				color: var(--theme-text);
+			}
+			.content {
+				width: 1200px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+			}
+			h1 {
+				margin-bottom: 2rem;
+			}
+			.board {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1rem;
+				margin-top: 2rem;
+			}
+			.column {
+				background: var(--theme-bg-accent);
+				border-radius: 0.5rem;
+				padding: 1rem;
+			}
+			.column-header {
+				font-size: 1.2em;
+				font-weight: 600;
+				margin-bottom: 1rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 2px solid var(--theme-divider);
+			}
+			.card {
+				background: var(--theme-bg);
+				border: 1px solid var(--theme-divider);
+				border-radius: 0.5rem;
+				padding: 1rem;
+				margin-bottom: 1rem;
+				cursor: move;
+				transition: box-shadow 0.2s ease;
+			}
+			.card:hover {
+				box-shadow: 0 2px 8px rgba(var(--accent-dark), 25%);
+			}
+			.card h3 {
+				margin: 0 0 0.5rem 0;
+				font-size: 1em;
+			}
+			.card p {
+				margin: 0;
+				font-size: 0.9em;
+				color: var(--theme-text-light);
+			}
+			.dragging {
+				opacity: 0.5;
+			}
+			@media (max-width: 768px) {
+				.board {
+					grid-template-columns: 1fr;
+					gap: 2rem;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<div class="content">
+				<h1>Project Status</h1>
+				<div class="board">
+					<div class="column" data-column="todo">
+						<div class="column-header">To Do</div>
+						{initialCards.todo.map(card => (
+							<div class="card" draggable="true" data-id={card.id}>
+								<h3>{card.title}</h3>
+								<p>{card.description}</p>
+							</div>
+						))}
+					</div>
+					<div class="column" data-column="doing">
+						<div class="column-header">Doing</div>
+						{initialCards.doing.map(card => (
+							<div class="card" draggable="true" data-id={card.id}>
+								<h3>{card.title}</h3>
+								<p>{card.description}</p>
+							</div>
+						))}
+					</div>
+					<div class="column" data-column="done">
+						<div class="column-header">Done</div>
+						{initialCards.done.map(card => (
+							<div class="card" draggable="true" data-id={card.id}>
+								<h3>{card.title}</h3>
+								<p>{card.description}</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+
+		<script>
+			let draggingCard = null;
+
+			document.addEventListener('DOMContentLoaded', () => {
+				const cards = document.querySelectorAll('.card');
+				const columns = document.querySelectorAll('.column');
+
+				cards.forEach(card => {
+					card.addEventListener('dragstart', handleDragStart);
+					card.addEventListener('dragend', handleDragEnd);
+				});
+
+				columns.forEach(column => {
+					column.addEventListener('dragover', handleDragOver);
+					column.addEventListener('drop', handleDrop);
+				});
+			});
+
+			function handleDragStart(e) {
+				draggingCard = e.target;
+				e.target.classList.add('dragging');
+			}
+
+			function handleDragEnd(e) {
+				e.target.classList.remove('dragging');
+				draggingCard = null;
+			}
+
+			function handleDragOver(e) {
+				e.preventDefault();
+			}
+
+			function handleDrop(e) {
+				e.preventDefault();
+				const column = e.target.closest('.column');
+				if (!column || !draggingCard) return;
+				
+				column.insertBefore(draggingCard, column.querySelector('.card') || null);
+			}
+		</script>
+	</body>
+</html>
