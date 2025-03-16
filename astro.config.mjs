@@ -13,11 +13,9 @@ export default defineConfig({
 		webAnalytics: {
 			enabled: true,
 		},
-		maxDuration: 60
+		maxDuration: 60,
+		includeFiles: ['./src/content/**/*'],
+		functionPerRoute: false
 	}),
-	integrations: [
-		mdx(),
-		sitemap(),
-		auth()
-	],
+	integrations: [mdx(), sitemap(), auth()],
 });
