@@ -15,41 +15,60 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
+				width: 100%;
 				max-width: 100%;
 				margin: 0;
+				background: var(--theme-bg);
+				color: var(--theme-text);
 			}
 			.hero-image {
 				width: 100%;
+				background: var(--theme-bg-accent);
+				padding: 2rem 0;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				max-width: 1020px;
+				width: calc(100% - 2rem);
+				height: auto;
+				border-radius: 0.75rem;
+				box-shadow: 0 4px 12px rgba(var(--accent-dark), 25%);
+				aspect-ratio: 2;
+				object-fit: cover;
 			}
 			.prose {
 				width: 720px;
 				max-width: calc(100% - 2em);
 				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				padding: 2em 1em;
+				color: var(--theme-text);
 			}
 			.title {
-				margin-bottom: 1em;
+				margin-bottom: 2em;
 				padding: 1em 0;
 				text-align: center;
-				line-height: 1;
+				line-height: 1.2;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				font-size: 2.5em;
+				font-weight: 700;
+				color: var(--theme-text);
 			}
 			.date {
 				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				color: var(--theme-text-light);
+				font-size: 0.9em;
 			}
 			.last-updated-on {
 				font-style: italic;
+				color: var(--theme-text-light);
+			}
+			hr {
+				border: none;
+				border-top: 1px solid var(--theme-divider);
+				margin: 1em 0;
 			}
 		</style>
 	</head>
@@ -59,7 +78,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+					{heroImage && <img src={heroImage} alt="" />}
 				</div>
 				<div class="prose">
 					<div class="title">
