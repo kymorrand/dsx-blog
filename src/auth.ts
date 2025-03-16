@@ -8,6 +8,8 @@ export default {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     })
   ],
+  secret: process.env.AUTH_SECRET,
+  trustHost: true,
   callbacks: {
     async signIn({ user, account, profile }) {
       // Only allow specific GitHub users to sign in
