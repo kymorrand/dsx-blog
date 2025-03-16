@@ -14,8 +14,10 @@
     "@astrojs/react": "^4.2.1",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^5.5.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "astro": "^4.5.2",
+    "hast-util-raw": "^9.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zwitch": "^2.0.4"
   }
 }
