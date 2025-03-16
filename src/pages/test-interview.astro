@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+import { BuddyInterview } from '../buddy/components/BuddyInterview';
+---
+
+<Layout
+	title="Test Builder Interview"
+	description="Test the Buddy interview system"
+	pubDate={new Date()}
+	heroImage="/blog-placeholder-1.jpg"
+>
+	<div class="prose prose-lg mx-auto">
+		<h1>Test Builder Interview</h1>
+		<p>This is a test page for the Buddy interview system. The Buddy will ask you questions about your progress on DSX today.</p>
+		
+		<div class="my-8">
+			<BuddyInterview 
+				client:load
+				builderId="test-builder"
+				onComplete={(responses) => {
+					console.log('Interview completed:', responses);
+				}}
+			/>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.prose {
+		max-width: 65ch;
+		margin: 0 auto;
+		padding: 2rem;
+	}
+</style>
