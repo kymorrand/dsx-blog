@@ -10,23 +10,25 @@ export default defineConfig({
 	output: 'server',
 	adapter: vercel({
 		functionPerRoute: false,
-		includeFiles: [
-			'./src/content/**/*'
-		],
+		includeFiles: ['./src/content/**/*'],
 		webAnalytics: {
 			enabled: false
 		},
 		speedInsights: {
 			enabled: false
-		},
-		imageService: false,
-		devImageService: 'sharp'
+		}
 	}),
 	integrations: [
 		mdx({
-			optimize: true
+			optimize: true,
+			extendMarkdownConfig: false
 		}),
 		sitemap(),
 		auth()
-	]
+	],
+	vite: {
+		ssr: {
+			noExternal: ['@auth/core']
+		}
+	}
 });
